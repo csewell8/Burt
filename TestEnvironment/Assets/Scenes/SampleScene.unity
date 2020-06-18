@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &236670343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8252516375228883309, guid: 3b7e6fe0dd148564d9fe365d1c8c309b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1236289422}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &253704668
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,8 +850,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
+  m_Constraints: 80
+  m_CollisionDetection: 2
 --- !u!64 &1236289427
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -882,15 +888,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236289423}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01daf473e0ebe4e4291de2ed355e751a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2415bea7030b8294bb051d0cb8325fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnscaledBird: {fileID: 1236289423}
-  cam: {fileID: 0}
+  Cockatiel: {fileID: 236670343}
+  lift: 3
+  flapCoolDown: 0
+  flapCoolDownTime: 30
+  cam: {fileID: 963194227}
   rb: {fileID: 1236289426}
-  thrust: 10
-  lift: 10
-  FlapCoolDownTime: 30
+  forwardMovement: 20
+  rotationSpeed: 3
+  forward: {x: 0, y: 0, z: 0}
 --- !u!1 &1304815360
 GameObject:
   m_ObjectHideFlags: 0

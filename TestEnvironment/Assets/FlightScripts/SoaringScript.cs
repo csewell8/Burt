@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class FlyingScript : MonoBehaviour
+public class SoaringScript : MonoBehaviour
 {
     public GameObject UnscaledBird;
     UnityEngine.Vector2 flydirection;
@@ -28,7 +28,7 @@ public class FlyingScript : MonoBehaviour
         UnityEngine.Vector2 mouseXY = new UnityEngine.Vector2(Input.mousePosition.x, Input.mousePosition.y);
         flydirection = centerScreenDimensions - mouseXY;
         flapCoolDown += Time.deltaTime;
-
+         
         int y = (int) flydirection.y;
         if (flydirection.y > (Screen.height/6))
          {
