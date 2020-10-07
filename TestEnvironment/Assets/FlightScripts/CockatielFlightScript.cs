@@ -17,6 +17,7 @@ public class CockatielFlightScript : MonoBehaviour
     public Vector3 forward;
     private const int flying = 0b0001;
     private const int walking = 0b0010;
+    private const int dead = 0b0000;
     
     public int movementState = 0;
 
@@ -29,19 +30,19 @@ public class CockatielFlightScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collider)
     {
-     //   Debug.Log(collider.gameObject.tag.ToString());
+        Debug.Log(collider.relativeVelocity.y);
         //Lots of different conditions will need to be established
      //   if (collider.gameObject.CompareTag("Ground"))
         {
 
             movementState = walking;
             //Something sus about what the actual values mean, RigidBody Info tab shows ~-20 for negative y when Debug says -10
-            if (rb.velocity.y > 10 || rb.velocity.y < -10)
+            if (collider.relativeVelocity.y > 10)
             {
               //  Debug.Log("Velocity too high");
              //   Debug.Log(rb.velocity.y.ToString());
                 rb.constraints = RigidbodyConstraints.None;//(rb.constraints ^ (RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationX));
-                
+                movementState = dead;
             }
             
            

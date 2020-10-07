@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
 
     public Camera cam;
+    public Camera deathCamera;
     public GameObject player;
     private float rotationAngle = 100f;
     public Vector3 CameraOffset;
-    private float cameraRotationNormalizer = 90.0f;
+   // private float cameraRotationNormalizer = 90.0f;
     private float birdAngle;
+    private bool deathCam = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,16 +28,28 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(player.GetComponent<CockatielFlightScript>().movementState == 0b0000 && deathCam != true)
+        {
+            deathCam = true;
+            deathCamera.transform.position = cam.transform.position;
+            deathCamera.transform.rotation = cam.transform.rotation;
+            cam.enabled = false;
+            deathCamera.enabled = true;
+        }
+        if(deathCam == true)
+        {
+            return;
+        }
         birdAngle = player.transform.rotation.eulerAngles.y;
 
-        float normalizedCam = ((cam.transform.rotation.eulerAngles.y - cameraRotationNormalizer)) % 360;
-        if(normalizedCam > 180.0f)
-        {
-            normalizedCam = normalizedCam - 360f;
-        }
+        float normalizedCam = (cam.transform.localRotation.eulerAngles.y) % 360;
+      //  if(normalizedCam > 180.0f)
+      //  {
+      //      normalizedCam = normalizedCam - 360f;
+      //  }
 
-        float modNum = (-10 ) % 360;
-        Debug.Log(modNum.ToString());
+      //  float modNum = (-10 ) % 360;
+      //  Debug.Log(modNum.ToString());
         if (Input.GetKey(KeyCode.Q))
        {
            //Rotate camera around the bird clockwise
@@ -52,12 +67,18 @@ public class CameraControl : MonoBehaviour
             if(normalizedCam > 0.5f || normalizedCam < -0.5f)
             {
                 float diff = normalizedCam;
-                cam.transform.RotateAround(player.transform.position, new Vector3(0, 1, 0), -(float)(normalizedCam/5));
+
+                if (normalizedCam > 180.0f)
+                {
+                    diff = normalizedCam - 360.0f;
+                }
+                  
+                cam.transform.RotateAround(player.transform.position, new Vector3(0, 1, 0), -(float)(diff/5));
             }
             //Nothing pressed so just rotate back to behind the bird
             else
             {
-                cam.transform.RotateAround(player.transform.position, new Vector3(0, 1, 0), -(float)(normalizedCam));
+              //  cam.transform.RotateAround(player.transform.position, new Vector3(0, 1, 0), -(float)(normalizedCam));
             }
       }
     
