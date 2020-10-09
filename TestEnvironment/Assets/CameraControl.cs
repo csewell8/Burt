@@ -38,6 +38,7 @@ public class CameraControl : MonoBehaviour
         }
         if(deathCam == true)
         {
+            deathCamera.transform.LookAt(player.transform);
             return;
         }
         birdAngle = player.transform.rotation.eulerAngles.y;
